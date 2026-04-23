@@ -29,3 +29,11 @@ MILESTONE 4
 
 Bonus,
 - Curare l’aspetto estetico della vostra applicazione
+
+
+MILESTONE 0 
+
+App ->
+Layout (navbar + outlet) ->
+- HomePage -> MovieCard (riutilizzabile, riceve movie come prop)
+- MovieDetailPage -> ReviewCard (riutilizzabile, riceve review come prop)
