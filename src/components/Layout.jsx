@@ -7,7 +7,7 @@ function Layout() {
         <Link className="navbar-brand" to="/">Movies App</Link>
       </nav>
 
-      <main className="container py-4">
+      <main className="container py-4 mb-5">
         <Outlet />
       </main>
     </>

@@ -15,7 +15,7 @@ function MovieCard({ movie }) {
         <p className="card-text">
           <small>{movie.genre} — {movie.release_year}</small>
         </p>
-        <Link to={`/movies/${movie.id}`} className="btn btn-primary btn-sm">
+        <Link to={`/movies/${movie.id}`} className="btn btn-primary btn-sm float-end me-2">
           Dettagli
         </Link>
       </div>

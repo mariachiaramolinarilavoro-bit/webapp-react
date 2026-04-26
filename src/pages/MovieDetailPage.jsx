@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import ReviewCard from '../components/ReviewCard'
+import ReviewForm from '../components/ReviewForm'
 
 function MovieDetailPage() {
   const { id } = useParams()
@@ -24,12 +25,19 @@ function MovieDetailPage() {
       })
   }, [id])
 
+  function handleReviewAdded(newReview) {
+    setMovie(prevMovie => ({
+      ...prevMovie,
+      reviews: [...prevMovie.reviews, newReview]
+    }))
+  }
+
   if (loading) return <p>Caricamento in corso...</p>
   if (error) return <p className="text-danger">{error}</p>
 
   return (
     <>
-      <Link to="/" className="btn btn-secondary mb-4">← Torna alla lista</Link>
+      <Link to="/" className="btn btn-outline-dark mb-4">← Torna alla lista</Link>
 
       <div className="row mb-5">
         <div className="col-md-4">
@@ -40,7 +48,7 @@ function MovieDetailPage() {
             onError={(e) => e.target.src = 'https://placehold.co/300x400?text=No+Image'}
           />
         </div>
-        <div className="col-md-8">
+        <div className="col-md-8 mt-4">
           <h1>{movie.title}</h1>
           <p><strong>Regista:</strong> {movie.director}</p>
           <p><strong>Genere:</strong> {movie.genre}</p>
@@ -57,6 +65,8 @@ function MovieDetailPage() {
           <ReviewCard key={review.id} review={review} />
         ))
       )}
+
+      <ReviewForm movieId={id} onReviewAdded={handleReviewAdded} />
     </>
   )
 }
