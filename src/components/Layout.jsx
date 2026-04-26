@@ -1,8 +1,10 @@
 import { Outlet, Link } from 'react-router-dom'
+import Loader from './Loader'
 
 function Layout() {
   return (
     <>
+      <Loader />
       <nav className="navbar navbar-dark bg-dark px-4">
         <Link className="navbar-brand" to="/">Movies App</Link>
       </nav>

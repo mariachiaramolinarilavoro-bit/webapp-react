@@ -2,14 +2,16 @@ import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import ReviewCard from '../components/ReviewCard'
 import ReviewForm from '../components/ReviewForm'
+import { useLoader } from '../context/LoaderContext'
 
 function MovieDetailPage() {
   const { id } = useParams()
   const [movie, setMovie] = useState(null)
-  const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const { setLoading } = useLoader()
 
   useEffect(() => {
+    setLoading(true)
     fetch(`${import.meta.env.VITE_API_URL}/movies/${id}`)
       .then(res => {
         if (!res.ok) throw new Error('Film non trovato')
@@ -32,12 +34,13 @@ function MovieDetailPage() {
     }))
   }
 
-  if (loading) return <p>Caricamento in corso...</p>
   if (error) return <p className="text-danger">{error}</p>
+
+  if (!movie) return null
 
   return (
     <>
-      <Link to="/" className="btn btn-outline-dark mb-4">← Torna alla lista</Link>
+      <Link to="/" className="btn btn-secondary mb-4">← Torna alla lista</Link>
 
       <div className="row mb-5">
         <div className="col-md-4">
@@ -48,7 +51,7 @@ function MovieDetailPage() {
             onError={(e) => e.target.src = 'https://placehold.co/300x400?text=No+Image'}
           />
         </div>
-        <div className="col-md-8 mt-4">
+        <div className="col-md-8">
           <h1>{movie.title}</h1>
           <p><strong>Regista:</strong> {movie.director}</p>
           <p><strong>Genere:</strong> {movie.genre}</p>
